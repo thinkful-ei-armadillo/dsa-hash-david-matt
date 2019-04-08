@@ -185,3 +185,23 @@ function hasPalindrome(str){
 // hasPalindrome('acecarr');
 // hasPalindrome('norther');
 
+function sortHelper(word) {
+  return word.split('').sort().join('');
+}
+
+// Anagram grouping
+function anagram(list) {
+  const hm = new Map();
+
+  for(let i = 0; i < list.length; i++) {
+    const sorted = sortHelper(list[i])
+    const group = hm.get(sorted) || [];
+    hm.set(sorted, [...group,list[i]])
+    
+  }
+
+  return Array.from(hm.values())
+}
+
+
+console.log(anagram(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']))
