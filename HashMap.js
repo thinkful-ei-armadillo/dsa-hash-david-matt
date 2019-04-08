@@ -1,3 +1,5 @@
+'use strict';
+
 class HashMap {
   constructor(initialCapacity = 8) {
     this.length = 0;
@@ -101,7 +103,7 @@ const WhatDoesThisDo = function(){
 
   console.log(map1.get(str1));
   console.log(map2.get(str3));
-}
+};
 
 function main() {
   const lor = new HashMap();
@@ -109,23 +111,23 @@ function main() {
   lor.SIZE_RATIO = 3;
 
   lor.set('Hobbit','Bilbo');
-  lor.set('Hobbit','Frodo')
-  lor.set('Human','Aragon')
-  lor.set('Wizard','Gandolf')
-  lor.set('Elf','Legolas')
-  lor.set('Maiar','Sauron')
-  lor.set('LadyOfLight','Galadriel')
-  lor.set("RingBearer","Gollum")
-  lor.set("HalfElven","Arwen")
-  lor.set('Ent','Treebeard')
+  lor.set('Hobbit','Frodo');
+  lor.set('Human','Aragon');
+  lor.set('Wizard','Gandolf');
+  lor.set('Elf','Legolas');
+  lor.set('Maiar','Sauron');
+  lor.set('LadyOfLight','Galadriel');
+  lor.set('RingBearer','Gollum');
+  lor.set('HalfElven','Arwen');
+  lor.set('Ent','Treebeard');
 
-  console.log(lor)
-  console.log(lor.get('Hobbit'))
+  console.log(lor);
+  console.log(lor.get('Hobbit'));
 
   // WhatDoesThisDo() 20 anb 10
 }
 
-main();
+// main();
 
 // Maiar  = Sauron, and Hobbit is Frodo
 // This is because Bilbo is overwritten because they have the same key. This is not a collision because 
@@ -133,3 +135,35 @@ main();
 
 // Capacity is 24.. This is because the MAX Load ratio was met and the hash table got resized. 
 
+
+// understanding hash maps:
+
+// keys 10, 22, 31, 4, 15, 28, 17, 88, 59
+// hash map length m = 11. Open addressing. Hash function: k mod m. 
+// Expected output: [22, 88, null, null, 4, 15, 28, 17, 59, 31, 10]
+
+// keys 5, 28, 19, 15, 20, 33, 12, 17, 10
+// hash map length m = 9. Hash function: k mod m.
+// Expected output: [null, head -> 28 -> 19 -> 10, 20, 12,null, 5, head -> 15 -> 33, 17,null]
+
+function removeDup(str){
+  const noDup = new HashMap();
+  noDup.MAX_LOAD_RATIO = 0.5;
+  noDup.SIZE_RATIO = 3;
+  let result = '';
+  for(let i = 0; i < str.length; i++){
+    noDup.set(str[i], str[i]);
+  }
+  for(let i = 0; i < str.length; i++){
+    console.log(noDup.get(str[i]));
+    result += noDup.get(str[i]);
+    if(noDup[noDup._hashString(str[i])].DELETED){result += '';
+    }else {
+      console.log('trying to delete');
+      noDup.delete(str[i]);
+    }
+  }
+  console.log(result);
+}
+
+removeDup('google');
