@@ -147,23 +147,41 @@ function main() {
 // Expected output: [null, head -> 28 -> 19 -> 10, 20, 12,null, 5, head -> 15 -> 33, 17,null]
 
 function removeDup(str){
-  const noDup = new HashMap();
-  noDup.MAX_LOAD_RATIO = 0.5;
-  noDup.SIZE_RATIO = 3;
+  const noDup = new Map();
+
   let result = '';
   for(let i = 0; i < str.length; i++){
-    noDup.set(str[i], str[i]);
-  }
-  for(let i = 0; i < str.length; i++){
-    console.log(noDup.get(str[i]));
-    result += noDup.get(str[i]);
-    if(noDup[noDup._hashString(str[i])].DELETED){result += '';
+    if(noDup.has(str[i])){
+      result += '';
     }else {
-      console.log('trying to delete');
-      noDup.delete(str[i]);
+      noDup.set(str[i], str[i]);
+      result += str[i];
     }
   }
   console.log(result);
+  return result;
 }
 
-removeDup('google');
+// removeDup('google all that you think can think of');
+
+function hasPalindrome(str){
+  const letters = new Map();
+  let singles = 0;
+  for(let i = 0;i < str.length; i++){
+    if(!letters.has(str[i])){
+      singles++;
+      letters.set(str[i]);
+    } else {
+      singles--;
+      letters.delete(str[i]);
+    }
+  }
+  if(singles > 1){
+    return false;
+  }
+  return true;
+}
+
+// hasPalindrome('acecarr');
+// hasPalindrome('norther');
+
